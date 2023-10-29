@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { Link } from 'react-router-dom';
+import './ProductList.css';
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -17,13 +17,21 @@ function ProductList() {
   }, []);
 
   return (
-    <div>
+    <div className ="product-container">
       <h1>Product List</h1>
-      <ul>
+      <div className="product-list">
         {products.map((product) => (
-          <li key={product.id}>{product.title}</li>
+          <Link key={product.id} to={`/products/${product.id}`} className="product-card">
+            <div className="product-image">
+              <img src={product.image} alt={product.title} />
+            </div>
+            <div className="product-details">
+              <h5 className="product-title">{product.title}</h5>
+              <p className="product-price">${product.price.toFixed(2)}</p>
+            </div>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
